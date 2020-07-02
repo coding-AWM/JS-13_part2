@@ -50,4 +50,4 @@ setInterval(function update() {
   nowTime.textContent = 'Текущее время: ' + dateNow.toLocaleTimeString('en');
 
   xMas.textContent = 'До Нового Года осталось ' + days + ' дня';
-}, 1000);
+}, 100

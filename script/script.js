@@ -2,7 +2,8 @@ window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   //'это таймер
-  function countTimer(deadLIne) {
+  // function countTimer(deadLIne) {
+  const countTimer = (deadLIne) => {
     let timerHours = document.getElementById('timer-hours');
     let timerMinutes = document.getElementById('timer-minutes');
     let timerSeconds = document.getElementById('timer-seconds');
@@ -49,7 +50,50 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
-
   countTimer('5 july 2020');
+
+  // меню
+
+  const toggleMenu = () => {
+    const btnMenu = document.querySelector('.menu');
+    const menu = document.querySelector('menu');
+    const closeBtn = document.querySelector('.close-btn');
+    const menuItems = menu.querySelectorAll('ul>li');
+
+    const handlerMenu = () => {
+      // if (!menu.style.transform || menu.style.transform === 'translate(-100%)') {
+      //   menu.style.transform = 'translate(0)';
+      // } else {
+      //   menu.style.transform = 'translate(-100%)';
+      // }
+      // далее замена всего то выше на новый етод работы с классом
+      menu.classList.toggle('active-menu');
+    }
+
+
+    btnMenu.addEventListener('click', handlerMenu);
+    closeBtn.addEventListener('click', handlerMenu);
+
+    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+
+  };
+  toggleMenu();
+
+  //дале будет ПопАп
+  const togglePopUp = () => {
+    const popUp = document.querySelector('.popup');
+    const popUpBtn = document.querySelectorAll('.popup-btn');
+    const popUpClose = document.querySelector('.popup-close');
+
+    popUpBtn.forEach((elem) => {
+      elem.addEventListener('click', () => {
+        popUp.style.display = 'block';
+      });
+    });
+    popUpClose.addEventListener('click', () => {
+      popUp.style.display = 'none';
+    });
+  };
+  togglePopUp();
   
 });

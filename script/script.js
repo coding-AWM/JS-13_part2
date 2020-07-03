@@ -76,8 +76,10 @@ window.addEventListener('DOMContentLoaded', function () {
   const togglePopUp = () => {
     const popUp = document.querySelector('.popup');
     const popupContent = document.querySelector('.popup-content');
+    console.dir('popupContent: ', popupContent);
     const popUpBtn = document.querySelectorAll('.popup-btn');
     let clientWidth = document.documentElement.clientWidth;
+    let count = 0;
 
     popUpBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
@@ -88,7 +90,6 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-    let count = 0;
 
     // popUpClose.addEventListener('click', () => {
     //   popUp.style.display = 'none';
@@ -113,10 +114,10 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     const moveMenu = () => {
-      count++;
-      popupContent.style.left = count + '%';
-      if (count < 40) {
-        setTimeout(moveMenu, 10);
+      count +=0.01;
+      popupContent.style.opacity = count;
+      if (count < 1) {
+        setTimeout(moveMenu, 5);
       }
     }
 

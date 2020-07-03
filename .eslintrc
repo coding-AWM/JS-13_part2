@@ -12,7 +12,7 @@
   "rules": {
     "indent": [
       "error",
-      4
+      "tab"
     ],
     "linebreak-style": [
       "error",
@@ -22,7 +22,7 @@
       "error",
       "always"
     ],
-    "no-console": "off",
+    "no-console": "on",
     "no-loop-func": [
       "error"
     ],

@@ -77,11 +77,12 @@ window.addEventListener('DOMContentLoaded', function () {
     const popUp = document.querySelector('.popup');
     const popupContent = document.querySelector('.popup-content');
     const popUpBtn = document.querySelectorAll('.popup-btn');
-    const clientWidth = document.documentElement.clientWidth;
+    let clientWidth = document.documentElement.clientWidth;
 
     popUpBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popUp.style.display = 'block';
+        clientWidth = document.documentElement.clientWidth;
         if (clientWidth > 768) {
           moveMenu();
         }

@@ -77,10 +77,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const popUp = document.querySelector('.popup');
     const popupContent = document.querySelector('.popup-content');
     const popUpBtn = document.querySelectorAll('.popup-btn');
-    const popUpClose = document.querySelector('.popup-close');
     const clientWidth = document.documentElement.clientWidth;
-    console.log('clientWidth: ', clientWidth);
-    
 
     popUpBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
@@ -92,19 +89,77 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     let count = 0;
 
-    popUpClose.addEventListener('click', () => {
-      popUp.style.display = 'none';
-      count = 0;
+    // popUpClose.addEventListener('click', () => {
+    //   popUp.style.display = 'none';
+    //   count = 0;
+    // }); //ненужен так как перенесли в обработчик ниже
+    popUp.addEventListener('click', () => {
+      let target = event.target;
+
+      if (target.classList.contains ('popup-close')) {
+        popUp.style.display = 'none';
+        count = 0;
+      } else {
+        target = target.closest('.popup-content');
+
+        if (!target) {
+          popUp.style.display = 'none';
+          count = 0;
+        }
+      }
+
+
     });
 
     const moveMenu = () => {
       count++;
       popupContent.style.left = count + '%';
-      if  (count < 40) {
+      if (count < 40) {
         setTimeout(moveMenu, 10);
       }
     }
+
   };
   togglePopUp();
+
+  //ТАБЫ
+  const tabs = () => {
+    const tabHeader = document.querySelector('.service-header');
+    const tab = tabHeader.querySelectorAll('.service-header-tab');
+    const tabContent = document.querySelectorAll('.service-tab');
+
+    const toggleTabContent = (index) => {
+      for (let i = 0; i < tabContent.length; i++) {
+        if (index === i) {
+          tab[i].classList.add('active');
+          tabContent[i].classList.remove('d-none');
+        } else {
+          tab[i].classList.remove('active');
+          tabContent[i].classList.add('d-none');
+        }
+      }
+    };
+
+    tabHeader.addEventListener('click', (event) => {
+      let target = event.target;
+      target = target.closest('.service-header-tab'); // если не нашел, то идёт выше и ищет у родителя, либо найдёт либо нет.
+
+      // while (target !== tabHeader) { //для етода клозест цикл можно убрать
+
+      if (target) {
+        tab.forEach((item, i) => {
+          if (item === target) {
+            toggleTabContent(i);
+          }
+
+        });
+
+        // return;  // так же дял клозест
+        // }
+        // target = target.parentsNode; //так же для метода клозест
+      }
+    });
+  };
+  tabs();
 
 });

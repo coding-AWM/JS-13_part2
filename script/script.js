@@ -54,20 +54,28 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // меню
 
-  const toggleMenu = () => {
-    const btnMenu = document.querySelector('.menu');
+  const toggleMenu = () => {    
     const menu = document.querySelector('menu');
-    const closeBtn = document.querySelector('.close-btn');
+
     const menuItems = menu.querySelectorAll('ul>li');
 
-    const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
-    }
+    document.addEventListener('click', () => {
+      let target = event.target;
 
-    btnMenu.addEventListener('click', handlerMenu);
-    closeBtn.addEventListener('click', handlerMenu);
+      if (target.closest('.menu')) {
+        menu.classList.toggle('active-menu');
+      } 
 
-    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+      if (target.classList.contains('close-btn')) {
+        menu.classList.toggle('active-menu');
+      }
+
+      if (target.closest('.active-menu>ul>li')) {
+        menu.classList.toggle('active-menu');
+      }
+    })
+    
+    
 
   };
   toggleMenu();
@@ -89,33 +97,25 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     let count = 0;
 
-    // popUpClose.addEventListener('click', () => {
-    //   popUp.style.display = 'none';
-    //   count = 0;
-    // }); //ненужен так как перенесли в обработчик ниже
     popUp.addEventListener('click', () => {
       let target = event.target;
-
       if (target.classList.contains ('popup-close')) {
         popUp.style.display = 'none';
         count = 0;
       } else {
         target = target.closest('.popup-content');
-
         if (!target) {
           popUp.style.display = 'none';
           count = 0;
         }
       }
-
-
     });
 
     const moveMenu = () => {
-      count++;
-      popupContent.style.left = count + '%';
-      if (count < 40) {
-        setTimeout(moveMenu, 10);
+      count += 0.01;
+      popupContent.style.opacity = count;
+      if (count < 1) {
+        setTimeout(moveMenu, 5);
       }
     }
 
@@ -144,8 +144,6 @@ window.addEventListener('DOMContentLoaded', function () {
       let target = event.target;
       target = target.closest('.service-header-tab'); // если не нашел, то идёт выше и ищет у родителя, либо найдёт либо нет.
 
-      // while (target !== tabHeader) { //для етода клозест цикл можно убрать
-
       if (target) {
         tab.forEach((item, i) => {
           if (item === target) {
@@ -153,10 +151,6 @@ window.addEventListener('DOMContentLoaded', function () {
           }
 
         });
-
-        // return;  // так же дял клозест
-        // }
-        // target = target.parentsNode; //так же для метода клозест
       }
     });
   };

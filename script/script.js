@@ -39,8 +39,8 @@ window.addEventListener('DOMContentLoaded', function () {
       timerMinutes.textContent = setZero(timer.minutes);
       timerSeconds.textContent = setZero(timer.seconds);
     }, 1000);
-    
-    
+
+
 
     function setZero(item) {
       if (item < 10) {
@@ -61,15 +61,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const menuItems = menu.querySelectorAll('ul>li');
 
     const handlerMenu = () => {
-      // if (!menu.style.transform || menu.style.transform === 'translate(-100%)') {
-      //   menu.style.transform = 'translate(0)';
-      // } else {
-      //   menu.style.transform = 'translate(-100%)';
-      // }
-      // далее замена всего то выше на новый етод работы с классом
       menu.classList.toggle('active-menu');
     }
-
 
     btnMenu.addEventListener('click', handlerMenu);
     closeBtn.addEventListener('click', handlerMenu);
@@ -82,18 +75,36 @@ window.addEventListener('DOMContentLoaded', function () {
   //дале будет ПопАп
   const togglePopUp = () => {
     const popUp = document.querySelector('.popup');
+    const popupContent = document.querySelector('.popup-content');
     const popUpBtn = document.querySelectorAll('.popup-btn');
     const popUpClose = document.querySelector('.popup-close');
+    const clientWidth = document.documentElement.clientWidth;
+    console.log('clientWidth: ', clientWidth);
+    
 
     popUpBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popUp.style.display = 'block';
+        if (clientWidth > 768) {
+          moveMenu();
+        }
       });
     });
+    let count = 0;
+
     popUpClose.addEventListener('click', () => {
       popUp.style.display = 'none';
+      count = 0;
     });
+
+    const moveMenu = () => {
+      count++;
+      popupContent.style.left = count + '%';
+      if  (count < 40) {
+        setTimeout(moveMenu, 10);
+      }
+    }
   };
   togglePopUp();
-  
+
 });

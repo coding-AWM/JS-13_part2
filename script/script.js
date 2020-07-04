@@ -179,6 +179,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		let dots = document.querySelectorAll('.dot');
+		dots[0].classList.add('dot-active');
 
 		const nextSlide = (elem, index, strClass) => {
 			elem[index].classList.add(strClass);

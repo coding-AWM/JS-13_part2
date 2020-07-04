@@ -243,5 +243,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 		startSlides(2000);
 	};
+	
 	slider();
 });

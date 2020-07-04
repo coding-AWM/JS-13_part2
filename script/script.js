@@ -156,4 +156,92 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	tabs();
 
+	//слайдер
+
+	const slider = () => {
+		const slides = document.querySelectorAll('.portfolio-item');
+		const btns = document.querySelectorAll('.portfolio-btn');
+		const dots = document.querySelectorAll('.dot');
+		const slider = document.getElementById('all-progects');
+
+		let curentSlide = 0;
+		let interval;
+
+		const nextSlide = (elem, index, strClass) => {
+			elem[index].classList.add(strClass);
+		};
+
+		const prevSlide = (elem, index, strClass) => {
+			elem[index].classList.remove(strClass);
+		};
+
+		const autoPlaySlides = () => {
+			prevSlide(slides, curentSlide, 'portfolio-item-active');
+			prevSlide(dots, curentSlide, 'dot-active');
+			curentSlide++;
+
+			if (curentSlide >= slides.length) {
+				curentSlide = 0;
+			};
+
+			nextSlide(slides, curentSlide, 'portfolio-item-active');
+			nextSlide(dots, curentSlide, 'dot-active');
+		};
+
+		const startSlides = (time = 3000) => {
+			interval = setInterval(autoPlaySlides, time);
+		};
+
+		const stopSlides = () => {
+			clearInterval(interval);
+		};
+
+		slider.addEventListener('click', (event => {
+			event.preventDefault();
+			let target = event.target;
+
+			if (!target.matches('.portfolio-btn, .dot')) {
+				return;
+			}
+			prevSlide(slides, curentSlide, 'portfolio-item-active');
+			prevSlide(dots, curentSlide, 'dot-active');
+
+			if (target.matches('#arrow-right')) {
+				curentSlide++;
+				if (curentSlide >= slides.length) {
+					curentSlide = 0;
+				};
+			} else if (target.matches('#arrow-left')) {
+				curentSlide--;
+				if (curentSlide < 0) {
+					curentSlide = slides.length - 1;
+				};
+			} else if (target.matches('.dot')) {
+				dots.forEach((elem, index) => {
+					if (elem === target) {
+						curentSlide = index;
+					}
+				});
+			}
+
+
+			nextSlide(slides, curentSlide, 'portfolio-item-active');
+			nextSlide(dots, curentSlide, 'dot-active');
+		}));
+
+		slider.addEventListener('mouseover', (event) => { //mouseenter не подойдёт
+			if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
+				stopSlides();
+			}
+		});
+
+		slider.addEventListener('mouseout', (event) => { //mouseleave не подойдёт
+			if (event.target.matches('.portfolio-btn') ||
+				event.target.matches('.dot')) {
+				startSlides();
+			}
+		});
+		startSlides(2000);
+	};
+	slider();
 });

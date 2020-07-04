@@ -161,11 +161,24 @@ window.addEventListener('DOMContentLoaded', () => {
 	const slider = () => {
 		const slides = document.querySelectorAll('.portfolio-item');
 		const btns = document.querySelectorAll('.portfolio-btn');
-		const dots = document.querySelectorAll('.dot');
 		const slider = document.getElementById('all-progects');
+		const portfolioDots = document.querySelector('.portfolio-dots');
+
+
 
 		let curentSlide = 0;
 		let interval;
+		
+		const getDot = () => {
+			let newDot = document.createElement('li');
+			newDot.classList.add('dot');
+			portfolioDots.append(newDot);
+		}
+		for (let i = 0; i < slides.length; i++) {
+			getDot();
+		}
+
+		let dots = document.querySelectorAll('.dot');
 
 		const nextSlide = (elem, index, strClass) => {
 			elem[index].classList.add(strClass);
@@ -243,6 +256,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 		startSlides(2000);
 	};
-	
+
 	slider();
 });

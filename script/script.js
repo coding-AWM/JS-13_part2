@@ -334,18 +334,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		calcBlock.addEventListener('change', event => {
 			const target = event.target;
-			//первый способ
-			// if (target.matches('.calc-type') || target.matches('.calc-square') || target.matches('.calc-day') || target.matches('.calc-count')) {
-			//console.log('fgsdg');
-			// }
-
-			//втрой способ
-			// if (target === calcType || target === calcSquare || target === calcDay || target === calcCount){
-			// 	console.log('hjgj');
-			// }
-
-			// третий способ
-
 			if (target.matches('select') || target.matches('input')) {
 				countSum();
 			}

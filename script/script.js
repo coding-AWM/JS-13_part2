@@ -164,21 +164,19 @@ window.addEventListener('DOMContentLoaded', () => {
 		const slider = document.getElementById('all-progects');
 		const portfolioDots = document.querySelector('.portfolio-dots');
 
-
-
 		let curentSlide = 0;
 		let interval;
-		
+
 		const getDot = () => {
-			let newDot = document.createElement('li');
+			const newDot = document.createElement('li');
 			newDot.classList.add('dot');
 			portfolioDots.append(newDot);
-		}
+		};
 		for (let i = 0; i < slides.length; i++) {
 			getDot();
 		}
 
-		let dots = document.querySelectorAll('.dot');
+		const dots = document.querySelectorAll('.dot');
 		dots[0].classList.add('dot-active');
 
 		const nextSlide = (elem, index, strClass) => {
@@ -196,7 +194,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			if (curentSlide >= slides.length) {
 				curentSlide = 0;
-			};
+			}
 
 			nextSlide(slides, curentSlide, 'portfolio-item-active');
 			nextSlide(dots, curentSlide, 'dot-active');
@@ -212,7 +210,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		slider.addEventListener('click', (event => {
 			event.preventDefault();
-			let target = event.target;
+			const target = event.target;
 
 			if (!target.matches('.portfolio-btn, .dot')) {
 				return;
@@ -224,12 +222,12 @@ window.addEventListener('DOMContentLoaded', () => {
 				curentSlide++;
 				if (curentSlide >= slides.length) {
 					curentSlide = 0;
-				};
+				}
 			} else if (target.matches('#arrow-left')) {
 				curentSlide--;
 				if (curentSlide < 0) {
 					curentSlide = slides.length - 1;
-				};
+				}
 			} else if (target.matches('.dot')) {
 				dots.forEach((elem, index) => {
 					if (elem === target) {
@@ -243,13 +241,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			nextSlide(dots, curentSlide, 'dot-active');
 		}));
 
-		slider.addEventListener('mouseover', (event) => { //mouseenter не подойдёт
+		slider.addEventListener('mouseover', event => { //mouseenter не подойдёт
 			if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
 				stopSlides();
 			}
 		});
 
-		slider.addEventListener('mouseout', (event) => { //mouseleave не подойдёт
+		slider.addEventListener('mouseout', event => { //mouseleave не подойдёт
 			if (event.target.matches('.portfolio-btn') ||
 				event.target.matches('.dot')) {
 				startSlides();
@@ -259,4 +257,17 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 
 	slider();
+
+	// расчёт стоимости
+
+	const inputCost = document.querySelectorAll('.calc-item');//Надо потом попробовать перевести на родителя
+	const calcBlock = document.querySelector('.calc-block');
+
+	calcBlock.addEventListener('input', event => {
+		let target = event.target;
+		target = target.closest('.calc-item');
+		if (target) {
+			target.value = target.value.replace(/\D/g, '');
+		}
+	});
 });

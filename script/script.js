@@ -277,13 +277,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const dataImg = () => {
 		let command = document.getElementById('command');
-		command.addEventListener('mouseenter', event => {
+		command.addEventListener('mouseover', event => {
 			let target = event.target;
 			target = target.closest('.command__photo');
-			if (target) {
-				target.src = target.dataset.img;
-			}
-
+			target.src = target.dataset.img;
 		});
 	};
 	dataImg();

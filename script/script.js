@@ -287,5 +287,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 	dataImg();
+	
 
 });

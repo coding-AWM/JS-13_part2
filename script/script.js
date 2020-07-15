@@ -297,5 +297,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 	dataImg();
-	
+
+	//калькулятор работ
+
+	const calculator = () => {
+		const calcBlock = document.querySelector('.calc-block');
+	};
+	calculator();
+
 });

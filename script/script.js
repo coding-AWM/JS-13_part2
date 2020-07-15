@@ -260,7 +260,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// расчёт стоимости
 	const cost = () => {
-		const inputCost = document.querySelectorAll('.calc-item');//Надо потом попробовать перевести на родителя
+		const inputCost = document.querySelectorAll('.calc-item'); //Надо потом попробовать перевести на родителя
 		const calcBlock = document.querySelector('.calc-block');
 
 		calcBlock.addEventListener('input', event => {
@@ -276,16 +276,28 @@ window.addEventListener('DOMContentLoaded', () => {
 	//дата картинки
 
 	const dataImg = () => {
-		command = document.getElementById('command');
-		command.addEventListener('click', e => {
+		const command = document.getElementById('command');
+		let mainSrc;
+		command.addEventListener('mouseover', event => {
 			let target = event.target;
 			target = target.closest('.command__photo');
+			mainSrc = event.target.src;
 			if (target) {
 				target.src = target.dataset.img;
+
 			}
 
 		});
+
+		command.addEventListener('mouseout', event => {
+			let target = event.target;
+			target = target.closest('.command__photo');
+			if (target) {
+				target.src = mainSrc;
+			}
+		});
+
 	};
-	dataImg();	
+	dataImg();
 
 });

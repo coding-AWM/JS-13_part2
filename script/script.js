@@ -276,8 +276,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	//дата картинки
 
 	const dataImg = () => {
-		command = document.getElementById('command');
-		command.addEventListener('click', e => {
+		let command = document.getElementById('command');
+		command.addEventListener('mouseenter', event => {
 			let target = event.target;
 			target = target.closest('.command__photo');
 			if (target) {
@@ -287,6 +287,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 	dataImg();
-	
+
 
 });

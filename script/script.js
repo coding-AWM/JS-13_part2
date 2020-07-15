@@ -273,5 +273,19 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	cost();
 
+	//дата картинки
+
+	const dataImg = () => {
+		command = document.getElementById('command');
+		command.addEventListener('click', e => {
+			let target = event.target;
+			target = target.closest('.command__photo');
+			if (target) {
+				target.src = target.dataset.img;
+			}
+
+		});
+	};
+	dataImg();
 
 });

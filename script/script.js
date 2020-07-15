@@ -284,9 +284,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			mainSrc = event.target.src;
 			if (target) {
 				target.src = target.dataset.img;
-
 			}
-
 		});
 
 		command.addEventListener('mouseout', event => {
@@ -299,5 +297,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	};
 	dataImg();
-
 });

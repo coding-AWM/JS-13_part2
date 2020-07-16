@@ -370,6 +370,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 	};
+	
 	sendForm();
 
 });

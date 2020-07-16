@@ -343,4 +343,33 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	calculator(100);
 
+	//отправка аякс = форм
+
+	const sendForm = () => {
+		const errorMessage = 'Что то не так пошло...';
+		const loadMessage = 'Загрузка...';
+		const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+		const form = document.getElementById('form1');
+
+		const statusMessage = document.createElement('div');
+		statusMessage.textContent = 'Тут будет слово';
+		
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			form.appendChild(statusMessage);
+
+			const request = new XMLHttpRequest();
+
+			request.open('POST', './server.php');
+			request.setRequestHeader('Content-Type', 'multipart/form-data');
+
+			const formData = new FormData(form);
+			request.send(formData);
+
+		});
+
+	};
+	sendForm();
+
 });

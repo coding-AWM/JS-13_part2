@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-
 	//'это таймер
 	const countTimer = deadLIne => {
 		const timerHours = document.getElementById('timer-hours');
@@ -342,5 +341,64 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 	calculator(100);
+
+	//отправка аякс = форм
+
+	const sendForm = () => {
+		const errorMessage = 'Что то не так пошло...';
+		const loadMessage = 'Загрузка...';
+		const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+		const form = document.getElementById('form1');
+
+		const statusMessage = document.createElement('div');
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			form.appendChild(statusMessage);
+
+			const request = new XMLHttpRequest();
+			request.addEventListener('readystatechange', () => {
+				statusMessage.textContent = loadMessage;
+				if (request.readyState !== 4) {
+					return;
+				}
+
+				if (request.status === 200) {
+					statusMessage.textContent = successMessage;
+				} else {
+					statusMessage.textContent = errorMessage;
+				}
+			});
+
+			request.open('POST', './server.php');
+			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+			// request.setRequestHeader('Content-Type', 'multipart/form-data');
+
+			//если отпрака через джейсон то как ниже
+			request.setRequestHeader('Content-Type', 'multipart/json');
+
+
+			const formData = new FormData(form);
+			let body = {};
+
+			//перебор значений
+			// for (let val of formData.entries()) {
+			// 	body[val[0]] = val[1];
+			// }
+
+			// либо такой перербор значений
+			formData.forEach((val, key) => {
+				body[key] = val;
+			});
+			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+			// request.send(formData);
+
+			//если отпрака через джейсон то как ниже
+			request.send(JSON.stringify(body));
+		});
+
+	};
+	sendForm();
 
 });

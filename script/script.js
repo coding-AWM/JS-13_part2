@@ -386,6 +386,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// for (let val of formData.entries()) {
 			// 	body[val[0]] = val[1];
 			// }
+			
 
 			// либо такой перербор значений
 			formData.forEach((val, key) => {

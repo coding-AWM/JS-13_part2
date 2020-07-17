@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-
 	//'это таймер
 	const countTimer = deadLIne => {
 		const timerHours = document.getElementById('timer-hours');
@@ -349,28 +348,132 @@ window.addEventListener('DOMContentLoaded', () => {
 		const errorMessage = 'Что то не так пошло...';
 		const loadMessage = 'Загрузка...';
 		const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-		const form = document.getElementById('form1');
-
+		const form = document.getElementsByTagName('form');
 		const statusMessage = document.createElement('div');
-		statusMessage.textContent = 'Тут будет слово';
-		
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			form.appendChild(statusMessage);
 
+		const sendEachForm = ourForm => {
+
+			ourForm.addEventListener('input', event => {
+				const target = event.target;
+				const noShowNumber = function () {
+					this.value = this.value.replace(/[\da-zA-Z]/g, '');
+				};
+
+				function maskPhone(selector, masked = '+7 (___) ___-__-__') {
+					const elems = document.querySelectorAll(selector);
+
+					function mask(event) {
+						const keyCode = event.keyCode;
+						const template = masked,
+							def = template.replace(/\D/g, ""),
+							val = this.value.replace(/\D/g, "");
+						// console.log(template);
+						let i = 0,
+							newValue = template.replace(/[_\d]/g, a => (i < val.length ? val.charAt(i++) || def.charAt(i) : a));
+						i = newValue.indexOf("_");
+						if (i != -1) {
+							newValue = newValue.slice(0, i);
+						}
+						let reg = template.substr(0, this.value.length).replace(/_+/g,
+							a => "\\d{1," + a.length + "}").replace(/[+()]/g, "\\$&");
+						reg = new RegExp("^" + reg + "$");
+						if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) {
+							this.value = newValue;
+						}
+						if (event.type == "blur" && this.value.length < 5) {
+							this.value = "";
+						}
+					}
+
+					for (const elem of elems) {
+						elem.addEventListener("input", mask);
+						elem.addEventListener("focus", mask);
+						elem.addEventListener("blur", mask);
+					}
+				}
+
+				if (target.matches('.form-name') || target.matches('.mess')) {
+					target.addEventListener('input', noShowNumber);
+				}
+				if (target.matches('.form-phone')) {
+					target.addEventListener('input', maskPhone('.form-phone'));
+				}
+			});
+
+			ourForm.addEventListener('submit', event => {
+				event.preventDefault();
+				ourForm.appendChild(statusMessage);
+				statusMessage.textContent = loadMessage;
+
+				const formData = new FormData(ourForm);
+				const body = {};
+
+				//перебор значений
+				// for (let val of formData.entries()) {
+				// 	body[val[0]] = val[1];
+				// }
+
+				// либо такой перербор значений
+				formData.forEach((val, key) => {
+					body[key] = val;
+				});
+				postData(body,
+					() => {
+						statusMessage.textContent = successMessage;
+					},
+					error => {
+						console.log(error);
+						statusMessage.textContent = errorMessage;
+					});
+
+				const inputs = ourForm.querySelectorAll('input');
+				inputs.forEach((val) => {
+					val.value = '';
+				});
+			});
+
+		};
+
+		sendEachForm(form[0]);
+		sendEachForm(form[1]);
+		sendEachForm(form[2]);
+
+		const postData = (body, outputData, errorData) => {
 			const request = new XMLHttpRequest();
+			request.addEventListener('readystatechange', () => {
+				if (request.readyState !== 4) {
+					return;
+				}
+
+				if (request.status === 200) {
+					outputData();
+				} else {
+					errorData(request.status);
+				}
+			});
 
 			request.open('POST', './server.php');
-			request.setRequestHeader('Content-Type', 'multipart/form-data');
+			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+			// request.setRequestHeader('Content-Type', 'multipart/form-data');
 
-			const formData = new FormData(form);
-			request.send(formData);
+			//если отпрака через джейсон то как ниже
+			request.setRequestHeader('Content-Type', 'multipart/json');
 
-		});
+			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+			// request.send(formData);
 
+			//если отпрака через джейсон то как ниже
+			request.send(JSON.stringify(body));
+			// let clear = () => {
+			// 	console.log(formName);
+			// 	formName.textContent = 'bvdcb';
+			// }
+			// clear();
+
+		};
+		// console.log();
+		// formName.textContent = 'bvdcb';
 	};
-	
 	sendForm();
 
 });

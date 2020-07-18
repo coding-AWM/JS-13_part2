@@ -439,7 +439,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		sendEachForm(form[2]);
 
 		const postData = (body, outputData, errorData) => {
-			const request = new XMLHttpRequest();
+
+			return new Promise((resolve, reject) => {
+				const request = new XMLHttpRequest();
 			request.addEventListener('readystatechange', () => {
 				if (request.readyState !== 4) {
 					return;
@@ -464,17 +466,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			//если отпрака через джейсон то как ниже
 			request.send(JSON.stringify(body));
-			// let clear = () => {
-			// 	console.log(formName);
-			// 	formName.textContent = 'bvdcb';
-			// }
-			// clear();
+			});
 
+			
 		};
-		// console.log();
-		// formName.textContent = 'bvdcb';
 	};
-	
+
 	sendForm();
 
 });

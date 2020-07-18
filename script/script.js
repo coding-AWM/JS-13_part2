@@ -159,7 +159,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const slider = () => {
 		const slides = document.querySelectorAll('.portfolio-item');
-		const btns = document.querySelectorAll('.portfolio-btn');
+		const btns = document.querySelectorAll('.portfolio-btn');// потом надо попробовать по индексу поработать
 		const slider = document.getElementById('all-progects');
 		const portfolioDots = document.querySelector('.portfolio-dots');
 
@@ -355,7 +355,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			ourForm.addEventListener('input', event => {
 				const target = event.target;
-				const noShowNumber = function() {
+				const noShowNumber = function () {
 					this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				};
 
@@ -408,23 +408,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				const formData = new FormData(ourForm);
 				const body = {};
 
-				//перебор значений
-				// for (let val of formData.entries()) {
-				// 	body[val[0]] = val[1];
-				// }
-
-				// либо такой перербор значений
 				formData.forEach((val, key) => {
 					body[key] = val;
 				});
-				// postData(body,
-				// 	() => {
-				// 		statusMessage.textContent = successMessage;
-				// 	},
-				// 	error => {
-				// 		console.log(error);
-				// 		statusMessage.textContent = errorMessage;
-				// 	});
 
 				postData(body)
 					.then(() => {

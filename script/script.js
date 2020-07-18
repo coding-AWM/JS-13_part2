@@ -355,7 +355,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			ourForm.addEventListener('input', event => {
 				const target = event.target;
-				const noShowNumber = function () {
+				const noShowNumber = function() {
 					this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				};
 
@@ -417,17 +417,25 @@ window.addEventListener('DOMContentLoaded', () => {
 				formData.forEach((val, key) => {
 					body[key] = val;
 				});
-				postData(body,
-					() => {
+				// postData(body,
+				// 	() => {
+				// 		statusMessage.textContent = successMessage;
+				// 	},
+				// 	error => {
+				// 		console.log(error);
+				// 		statusMessage.textContent = errorMessage;
+				// 	});
+
+				postData(body)
+					.then(() => {
 						statusMessage.textContent = successMessage;
-					},
-					error => {
+					})
+					.catch(error => {
 						console.log(error);
 						statusMessage.textContent = errorMessage;
 					});
-
 				const inputs = ourForm.querySelectorAll('input');
-				inputs.forEach((val) => {
+				inputs.forEach(val => {
 					val.value = '';
 				});
 			});
@@ -438,19 +446,18 @@ window.addEventListener('DOMContentLoaded', () => {
 		sendEachForm(form[1]);
 		sendEachForm(form[2]);
 
-		const postData = (body, outputData, errorData) => {
+		const postData = body => new Promise((resolve, reject) => {
+			const request = new XMLHttpRequest();
 
-			return new Promise((resolve, reject) => {
-				const request = new XMLHttpRequest();
 			request.addEventListener('readystatechange', () => {
 				if (request.readyState !== 4) {
 					return;
 				}
 
 				if (request.status === 200) {
-					outputData();
+					resolve();
 				} else {
-					errorData(request.status);
+					reject(request.status);
 				}
 			});
 
@@ -466,10 +473,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			//если отпрака через джейсон то как ниже
 			request.send(JSON.stringify(body));
-			});
-
-			
-		};
+		});
 	};
 
 	sendForm();

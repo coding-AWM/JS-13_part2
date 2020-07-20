@@ -436,8 +436,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		sendEachForm(form[0]);
 		sendEachForm(form[1]);
 		sendEachForm(form[2]);
-
-
+		
 		const postData = body =>
 
 			fetch('./server.php', {

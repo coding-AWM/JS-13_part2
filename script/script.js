@@ -355,7 +355,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			ourForm.addEventListener('input', event => {
 				const target = event.target;
-				const noShowNumber = function() {
+				const noShowNumber = function () {
 					this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				};
 
@@ -437,58 +437,16 @@ window.addEventListener('DOMContentLoaded', () => {
 		sendEachForm(form[1]);
 		sendEachForm(form[2]);
 
-		// const postData = body => new Promise((resolve, reject) => {
+
 		const postData = body =>
 
-			// eslint-disable-next-line no-mixed-spaces-and-tabs
 			fetch('./server.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'multipart/json'
 				},
 				body: JSON.stringify(body)
-			})
-		// .then((response) => {
-
-		// 	return response.text();
-		// })
-		// .then((response) => {
-		// 	resolve();
-
-		// })
-		// .catch((error) => console.error(error));
-
-		;
-
-		////////////////////////видео 8-50           на 14-30 отправка. важно
-
-
-		// const request = new XMLHttpRequest();
-
-		// 	request.addEventListener('readystatechange', () => {
-		// 		if (request.readyState !== 4) {
-		// 			return;
-		// 		}
-
-		// 		if (request.status === 200) {
-		// 			resolve();
-		// 		} else {
-		// 			reject(request.status);
-		// 		}
-		// 	});
-
-		// 	request.open('POST', './server.php');
-		// 	//если отправка формы то так как ниже, если сервер понимает, то лдучше так
-		// 	// request.setRequestHeader('Content-Type', 'multipart/form-data');
-
-		// 	//если отпрака через джейсон то как ниже
-		// 	request.setRequestHeader('Content-Type', 'multipart/json');
-
-		// 	//если отправка формы то так как ниже, если сервер понимает, то лдучше так
-		// 	// request.send(formData);
-
-		// 	//если отпрака через джейсон то как ниже
-		// 	request.send(JSON.stringify(body));
+			});
 	};
 
 	sendForm();

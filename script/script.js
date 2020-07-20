@@ -48,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	};
-	countTimer('20 july 2020');
+	countTimer('21 july 2020');
 
 	// меню
 
@@ -159,7 +159,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const slider = () => {
 		const slides = document.querySelectorAll('.portfolio-item');
-		const btns = document.querySelectorAll('.portfolio-btn');// потом надо попробовать по индексу поработать
+		const btns = document.querySelectorAll('.portfolio-btn'); // потом надо попробовать по индексу поработать
 		const slider = document.getElementById('all-progects');
 		const portfolioDots = document.querySelector('.portfolio-dots');
 
@@ -355,7 +355,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			ourForm.addEventListener('input', event => {
 				const target = event.target;
-				const noShowNumber = function () {
+				const noShowNumber = function() {
 					this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				};
 
@@ -413,14 +413,19 @@ window.addEventListener('DOMContentLoaded', () => {
 				});
 
 				postData(body)
-					.then(() => {
+					.then(response => {
+						if (response.status !== 200) {
+							throw new Error('status network not 200!');
+						}
 						statusMessage.textContent = successMessage;
 					})
 					.catch(error => {
 						console.log(error);
 						statusMessage.textContent = errorMessage;
 					});
+
 				const inputs = ourForm.querySelectorAll('input');
+
 				inputs.forEach(val => {
 					val.value = '';
 				});
@@ -432,34 +437,58 @@ window.addEventListener('DOMContentLoaded', () => {
 		sendEachForm(form[1]);
 		sendEachForm(form[2]);
 
-		const postData = body => new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
+		// const postData = body => new Promise((resolve, reject) => {
+		const postData = body =>
 
-			request.addEventListener('readystatechange', () => {
-				if (request.readyState !== 4) {
-					return;
-				}
+			// eslint-disable-next-line no-mixed-spaces-and-tabs
+			fetch('./server.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'multipart/json'
+				},
+				body: JSON.stringify(body)
+			})
+		// .then((response) => {
 
-				if (request.status === 200) {
-					resolve();
-				} else {
-					reject(request.status);
-				}
-			});
+		// 	return response.text();
+		// })
+		// .then((response) => {
+		// 	resolve();
 
-			request.open('POST', './server.php');
-			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
-			// request.setRequestHeader('Content-Type', 'multipart/form-data');
+		// })
+		// .catch((error) => console.error(error));
 
-			//если отпрака через джейсон то как ниже
-			request.setRequestHeader('Content-Type', 'multipart/json');
+		;
 
-			//если отправка формы то так как ниже, если сервер понимает, то лдучше так
-			// request.send(formData);
+		////////////////////////видео 8-50           на 14-30 отправка. важно
 
-			//если отпрака через джейсон то как ниже
-			request.send(JSON.stringify(body));
-		});
+
+		// const request = new XMLHttpRequest();
+
+		// 	request.addEventListener('readystatechange', () => {
+		// 		if (request.readyState !== 4) {
+		// 			return;
+		// 		}
+
+		// 		if (request.status === 200) {
+		// 			resolve();
+		// 		} else {
+		// 			reject(request.status);
+		// 		}
+		// 	});
+
+		// 	request.open('POST', './server.php');
+		// 	//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+		// 	// request.setRequestHeader('Content-Type', 'multipart/form-data');
+
+		// 	//если отпрака через джейсон то как ниже
+		// 	request.setRequestHeader('Content-Type', 'multipart/json');
+
+		// 	//если отправка формы то так как ниже, если сервер понимает, то лдучше так
+		// 	// request.send(formData);
+
+		// 	//если отпрака через джейсон то как ниже
+		// 	request.send(JSON.stringify(body));
 	};
 
 	sendForm();

@@ -35,11 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			}
 		}
-
-
-
-
-
+		
 		function setZero(item) {
 			if (item < 10) {
 				return '0' + item;
@@ -48,7 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	};
-	countTimer('21 july 2020');
+	countTimer('31 july 2020');
 
 	// меню
 

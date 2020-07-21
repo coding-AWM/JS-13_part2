@@ -16,7 +16,6 @@ const sendForm = () => {
 				// this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				if (this.value.length < 18) {
 					this.style.backgroundColor = 'red';
-					console.log(this.value.length);
 				} else {
 					this.style.backgroundColor = '';
 				}

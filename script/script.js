@@ -354,6 +354,16 @@ window.addEventListener('DOMContentLoaded', () => {
 					this.value = this.value.replace(/[\da-zA-Z]/g, '');
 				};
 
+				const phoneNumber = function () {
+					// this.value = this.value.replace(/[\da-zA-Z]/g, '');
+					if (this.value.length < 18) {
+						this.style.backgroundColor = 'red';
+						console.log(this.value.length);
+					} else {
+						this.style.backgroundColor = '';
+					}
+				};
+
 				function maskPhone(selector, masked = '+7 (___) ___-__-__') {
 					const elems = document.querySelectorAll(selector);
 
@@ -375,8 +385,9 @@ window.addEventListener('DOMContentLoaded', () => {
 						if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) {
 							this.value = newValue;
 						}
-						if (event.type == "blur" && this.value.length < 5) {
+						if (event.type == "blur" && this.value.length < 15) {
 							this.value = "";
+							this.style.backgroundColor = '';
 						}
 					}
 
@@ -393,6 +404,11 @@ window.addEventListener('DOMContentLoaded', () => {
 				if (target.matches('.form-phone')) {
 					target.addEventListener('input', maskPhone('.form-phone'));
 				}
+				if (target.matches('.form-phone')) {
+					target.addEventListener('input', phoneNumber);
+				}
+
+
 			});
 
 			ourForm.addEventListener('submit', event => {

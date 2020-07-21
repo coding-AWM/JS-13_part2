@@ -12,7 +12,7 @@ import calculator from './modules/calculator';
 import sendForm from './modules/sendForm';
 
 //'это таймер
-countTimer('21 july 2020');
+countTimer('31 july 2020');
 
 // меню
 toggleMenu();
